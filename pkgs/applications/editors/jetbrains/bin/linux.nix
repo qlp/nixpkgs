@@ -15,9 +15,6 @@
 , e2fsprogs
 , python3
 , autoPatchelfHook
-, vmopts ? ''
--Xmx8G
-''
 }:
 
 { pname
@@ -59,7 +56,9 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
     icon = pname;
     startupWMClass = wmClass;
   };
-
+  vmopts = ''
+  -Xmx8G
+  '';
   vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
   nativeBuildInputs = [ makeWrapper patchelf unzip autoPatchelfHook ];
