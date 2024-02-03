@@ -59,6 +59,8 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
   vmopts = ''
   -Xmx8G
   '';
+  break it
+  should not work
   vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
   nativeBuildInputs = [ makeWrapper patchelf unzip autoPatchelfHook ];
