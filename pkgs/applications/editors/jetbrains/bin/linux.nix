@@ -56,11 +56,6 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
     icon = pname;
     startupWMClass = wmClass;
   };
-  vmopts = ''
-  -Xmx8G
-  '';
-  break it
-  should not work
   vmoptsFile = lib.optionalString (vmopts != null) (writeText vmoptsName vmopts);
 
   nativeBuildInputs = [ makeWrapper patchelf unzip autoPatchelfHook ];
@@ -123,6 +118,8 @@ with stdenv; lib.makeOverridable mkDerivation (rec {
     chmod +x $out/$pname/bin/remote-dev-server-wrapped.sh
     ln -s "$out/$pname/bin/remote-dev-server-wrapped.sh" $out/bin/$pname-remote-dev-server
     ln -s "$item/share/applications" $out/share
+    mv "$out/$pname/bin/${vmoptsName}" "$out/$pname/bin/${vmoptsName}.org"
+    cp "${vmoptsFile}" "$out/$pname/bin/${vmoptsName}"
 
     runHook postInstall
   '';
