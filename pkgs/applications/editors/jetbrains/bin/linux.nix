@@ -15,6 +15,7 @@
 , e2fsprogs
 , python3
 , autoPatchelfHook
+, vmopts ? null
 }:
 
 { pname
